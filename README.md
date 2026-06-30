@@ -57,7 +57,7 @@
 - **Client-Side Only:** All data stored in browser `localStorage`
 - **Reactive State Object:** Central state tree for transactions, filters, and UI state
 - **Automatic Persistence:** Real-time syncing to localStorage on every transaction change
-- **Seed Data:** Pre-populated with mock transactions for demo purposes
+- **Fresh First Load:** New visitors start with an empty tracker and their data stays in their own browser
 
 ### Design System
 - **CSS Custom Properties:** Unified theme (light/dark mode)
@@ -234,6 +234,8 @@ All data is stored locally in your browser using `localStorage`:
 - **Theme:** `budgettracker_theme`
 
 **Note:** Clearing browser storage will erase all data. Use **Export Backup** to save your data before clearing.
+
+Each visitor has separate browser storage. The live app does not use a shared database, so one person's transactions are not visible to another person.
 
 ---
 

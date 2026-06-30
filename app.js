@@ -66,26 +66,26 @@ const CATEGORY_BORDER_COLORS = {
   'Education': 'rgb(249, 115, 22)'
 };
 
-// --- MOCK SEED DATA ---
-// Provided to ensure a rich dashboard visual experience on first load
-const SEED_TRANSACTIONS = [
-  { id: 'seed-1', description: 'Monthly Salary Paycheck', amount: 4800.00, date: '2026-06-01', category: 'Salary', type: 'income', notes: 'Main salary income' },
-  { id: 'seed-2', description: 'Apartment Rent & Water Bill', amount: 1200.00, date: '2026-06-02', category: 'Rent & Utilities', type: 'expense', notes: 'Monthly rent' },
-  { id: 'seed-3', description: 'UI/UX Freelance Design Work', amount: 850.00, date: '2026-06-12', category: 'Freelance', type: 'income', notes: 'Landing page client project' },
-  { id: 'seed-4', description: 'Whole Foods Grocery Run', amount: 184.50, date: '2026-06-14', category: 'Food & Dining', type: 'expense', notes: 'Weekly groceries' },
-  { id: 'seed-5', description: 'Chevron Fuel Refill', amount: 55.00, date: '2026-06-15', category: 'Transportation', type: 'expense', notes: 'Gas for commuter car' },
-  { id: 'seed-6', description: 'Netflix & Spotify Subscriptions', amount: 28.98, date: '2026-06-17', category: 'Entertainment', type: 'expense', notes: 'Recurring auto-debit bills' },
-  { id: 'seed-7', description: 'Tech Gadget Purchase (Keychron Keyboard)', amount: 149.00, date: '2026-06-20', category: 'Shopping', type: 'expense', notes: 'Mechanical keyboard upgrade' },
-  { id: 'seed-8', description: 'Weekly Dinner Out & Drinks', amount: 92.40, date: '2026-06-22', category: 'Food & Dining', type: 'expense', notes: 'Dinner with friends' },
-  { id: 'seed-9', description: 'Stock Dividend payout', amount: 120.00, date: '2026-06-25', category: 'Investments', type: 'income', notes: 'Quarterly dividends' },
-  { id: 'seed-10', description: 'Gym Membership Renewal', amount: 65.00, date: '2026-06-28', category: 'Other', type: 'expense', notes: 'Health fitness' },
-  // Last month's mock data (May 2026) for monthly trend visual validation
-  { id: 'seed-11', description: 'Salary Paycheck May', amount: 4800.00, date: '2026-05-01', category: 'Salary', type: 'income', notes: '' },
-  { id: 'seed-12', description: 'Apartment Rent May', amount: 1200.00, date: '2026-05-02', category: 'Rent & Utilities', type: 'expense', notes: '' },
-  { id: 'seed-13', description: 'Grocery Purchase', amount: 220.00, date: '2026-05-10', category: 'Food & Dining', type: 'expense', notes: '' },
-  { id: 'seed-14', description: 'Flight Ticket Weekend Trip', amount: 350.00, date: '2026-05-18', category: 'Travel', type: 'expense', notes: '' },
-  { id: 'seed-15', description: 'Dental Checkup Copay', amount: 80.00, date: '2026-05-24', category: 'Healthcare', type: 'expense', notes: '' }
-];
+// --- LEGACY DEMO DATA MIGRATION ---
+// Older builds saved these demo records into visitors' browsers. Keep the IDs so
+// the live app can remove them once while preserving each visitor's own data.
+const LEGACY_SEED_TRANSACTION_IDS = new Set([
+  'seed-1',
+  'seed-2',
+  'seed-3',
+  'seed-4',
+  'seed-5',
+  'seed-6',
+  'seed-7',
+  'seed-8',
+  'seed-9',
+  'seed-10',
+  'seed-11',
+  'seed-12',
+  'seed-13',
+  'seed-14',
+  'seed-15'
+]);
 
 // --- APP STATE ---
 const state = {
@@ -217,15 +217,29 @@ window.addEventListener('DOMContentLoaded', () => {
   showToast('Welcome to Budget Tracker!', 'info');
 });
 
-// Load state from local storage or initialize seed data
+// Load state from local storage. New visitors start with an empty budget.
 function initAppState() {
   // 1. Transactions
   const savedTxs = localStorage.getItem(STORAGE_KEYS.TRANSACTIONS);
   if (savedTxs) {
-    state.transactions = JSON.parse(savedTxs);
+    try {
+      const parsedTransactions = JSON.parse(savedTxs);
+      const ownTransactions = Array.isArray(parsedTransactions)
+        ? parsedTransactions.filter(tx => !LEGACY_SEED_TRANSACTION_IDS.has(tx.id))
+        : [];
+      const parsedTransactionCount = Array.isArray(parsedTransactions) ? parsedTransactions.length : 0;
+
+      state.transactions = ownTransactions;
+
+      if (ownTransactions.length !== parsedTransactionCount || !Array.isArray(parsedTransactions)) {
+        localStorage.setItem(STORAGE_KEYS.TRANSACTIONS, JSON.stringify(ownTransactions));
+      }
+    } catch (error) {
+      state.transactions = [];
+      localStorage.setItem(STORAGE_KEYS.TRANSACTIONS, JSON.stringify(state.transactions));
+    }
   } else {
-    // Seed default mock transactions if database is empty
-    state.transactions = [...SEED_TRANSACTIONS];
+    state.transactions = [];
     localStorage.setItem(STORAGE_KEYS.TRANSACTIONS, JSON.stringify(state.transactions));
   }
   
