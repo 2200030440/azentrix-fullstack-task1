@@ -333,21 +333,5 @@ npm run build
 
 ---
 
-## 📸 Screenshots & Visual Interface
-
-### 1. Main Dashboard View
-A beautiful dashboard layout containing the metrics summary card, dynamic progress budget tracker, and two analytics charts:
-![Dashboard View](screenshots/dashboard_final.png)
-
-### 2. Transaction Insertion Modal Form
-A focused, modal form allowing details input for description, category selection, and amount configuration:
-![Transaction Modal Form](screenshots/transaction_form.png)
-
-### 3. Interactive Success Notification
-Clean notifications alert the user of successful addition, edits, imports, or budget warning events:
-![Toast Notification](screenshots/transaction_added_success.png)
-
----
-
 ## 📄 License
 This project is open-source. Feel free to use, modify, and distribute as desired.
