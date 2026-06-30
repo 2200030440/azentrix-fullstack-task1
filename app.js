@@ -185,6 +185,7 @@ const dom = {
   
   // Confirmation dialog
   confirmModal: document.getElementById('confirmModal'),
+  confirmModalText: document.getElementById('confirmModalText'),
   btnCancelConfirm: document.getElementById('btnCancelConfirm'),
   btnApproveConfirm: document.getElementById('btnApproveConfirm'),
   
