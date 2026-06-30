@@ -76,24 +76,20 @@
 ## 📸 Screenshots & Demo
 
 ### Dashboard - Main Financial Overview
-![Dashboard](screenshots/dashboard_final.png)
-*Complete dashboard showing real-time metrics (Net Balance ₹6,945.12, Monthly Income ₹5,770.00, Expenses ₹1,774.88), Smart Insight panel, Monthly Trend chart, Expense Breakdown donut chart, Budget Tracker with visual progress, and recent transactions preview with dark mode toggle.*
+![Dashboard](screenshots/dashboard_main.png)
+*Complete dashboard showing real-time metrics (Net Balance, Monthly Income, Monthly Expenses, Savings Rate), Smart Insight panel, Monthly Trend chart, Expense Breakdown donut chart, Budget Tracker with visual progress, and recent transactions preview.*
 
 ### Transaction Management - Add/Edit Modal
-![Transaction Form](screenshots/transaction_form.png)
-*Modal form interface for creating or editing transactions. Supports expense/income type selection, amount entry, date picker, smart category selection, and optional notes. Shows real-time validation and categorization.*
+![Transaction Form](screenshots/transaction_modal.png)
+*Modal form interface for creating or editing transactions. Supports expense/income type selection, amount entry, date picker, smart category selection, and optional notes.*
 
 ### Transactions Ledger - Full Transaction History
-![Transactions Ledger](screenshots/dashboard_inr_default.png)
-*Complete transactions ledger view with search, advanced filtering (type, category, date range), sorting options, pagination, and inline edit/delete actions. Shows all transaction details with amounts, categories, and transaction type badges.*
+![Transactions Ledger](screenshots/transactions_ledger.png)
+*Complete transactions ledger view with search, advanced filtering (type, category, date range), sorting options, pagination, and inline edit/delete actions for all transactions.*
 
 ### Budget Settings & Data Management
-![Budget Settings](screenshots/settings_final_inr.png)
-*Settings tab with monthly budget limit configuration, alert threshold adjustment, multi-currency selector (INR, USD, EUR, GBP, JPY), Export/Import data as CSV, and Factory Reset option with double-confirmation safety.*
-
-### Multi-Currency Support Demo
-![USD Metrics](screenshots/dashboard_usd_metrics.png)
-*Dashboard automatically updates all currency displays when switching between supported currencies. Shows proper formatting and symbols for international finance tracking.*
+![Budget Settings](screenshots/settings_budget.png)
+*Settings tab with monthly budget limit configuration, alert threshold adjustment, multi-currency selector, Export/Import data as CSV, and Factory Reset option with double-confirmation safety.*
 
 ---
 
