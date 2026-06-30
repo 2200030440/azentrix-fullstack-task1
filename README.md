@@ -1,8 +1,8 @@
 # 💸 Budget Tracker - Premium Personal Finance Manager
 
-**Budget Tracker** is a sleek, premium, and fully responsive personal finance and budget tracking web application. It helps individuals and small businesses monitor their daily income and expenses with an intuitive, beautiful dashboard. The app operates entirely on the client side with automatic data persistence using browser `localStorage`.
+🚀 **[LIVE APP - Click Here to Use](https://poetic-capybara-5aae2b.netlify.app/)**
 
-🔗 **Live Demo:** [https://poetic-capybara-5aae2b.netlify.app/](https://poetic-capybara-5aae2b.netlify.app/)
+**Budget Tracker** is a sleek, premium, and fully responsive personal finance and budget tracking web application. It helps individuals and small businesses monitor their daily income and expenses with an intuitive, beautiful dashboard. The app operates entirely on the client side with automatic data persistence using browser `localStorage`.
 
 ---
 
@@ -75,21 +75,25 @@
 
 ## 📸 Screenshots & Demo
 
-### Dashboard View
+### Dashboard - Main Financial Overview
 ![Dashboard](screenshots/dashboard_final.png)
-*Main dashboard showing metrics, charts, and recent transactions with dark theme*
+*Complete dashboard showing real-time metrics (Net Balance ₹6,945.12, Monthly Income ₹5,770.00, Expenses ₹1,774.88), Smart Insight panel, Monthly Trend chart, Expense Breakdown donut chart, Budget Tracker with visual progress, and recent transactions preview with dark mode toggle.*
 
-### Transaction Management
+### Transaction Management - Add/Edit Modal
 ![Transaction Form](screenshots/transaction_form.png)
-*Modal form for adding/editing transactions with category selection*
+*Modal form interface for creating or editing transactions. Supports expense/income type selection, amount entry, date picker, smart category selection, and optional notes. Shows real-time validation and categorization.*
 
-### Budget Settings
-![Settings](screenshots/settings_final_inr.png)
-*Budget configuration, currency selection, and data export/import*
+### Transactions Ledger - Full Transaction History
+![Transactions Ledger](screenshots/dashboard_final.png)
+*Complete transactions ledger view with search, advanced filtering (type, category, date range), sorting options, pagination, and inline edit/delete actions. Shows all transaction details with amounts, categories, and transaction type badges.*
 
-### Multi-Currency Support
+### Budget Settings & Data Management
+![Budget Settings](screenshots/settings_final_inr.png)
+*Settings tab with monthly budget limit configuration, alert threshold adjustment, multi-currency selector (INR, USD, EUR, GBP, JPY), Export/Import data as CSV, and Factory Reset option with double-confirmation safety.*
+
+### Multi-Currency Support Demo
 ![USD Metrics](screenshots/dashboard_usd_metrics.png)
-*Dashboard with USD currency and updated financial metrics*
+*Dashboard automatically updates all currency displays when switching between supported currencies. Shows proper formatting and symbols for international finance tracking.*
 
 ---
 
