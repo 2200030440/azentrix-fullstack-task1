@@ -84,7 +84,7 @@
 *Modal form interface for creating or editing transactions. Supports expense/income type selection, amount entry, date picker, smart category selection, and optional notes. Shows real-time validation and categorization.*
 
 ### Transactions Ledger - Full Transaction History
-![Transactions Ledger](screenshots/dashboard_final.png)
+![Transactions Ledger](screenshots/dashboard_inr_default.png)
 *Complete transactions ledger view with search, advanced filtering (type, category, date range), sorting options, pagination, and inline edit/delete actions. Shows all transaction details with amounts, categories, and transaction type badges.*
 
 ### Budget Settings & Data Management
