@@ -1,4 +1,4 @@
-// AuraBudget Application Script
+// Budget Tracker Application Script
 
 // --- CONSTANTS & CONFIGURATION ---
 const STORAGE_KEYS = {
@@ -212,7 +212,7 @@ window.addEventListener('DOMContentLoaded', () => {
   renderDashboard();
   renderTransactionsLedger();
   
-  showToast('Welcome to AuraBudget!', 'info');
+  showToast('Welcome to Budget Tracker!', 'info');
 });
 
 // Load state from local storage or initialize seed data
@@ -313,8 +313,15 @@ function updateFilterCategories() {
   });
 }
 
-// Setup Lucide icons renderer
+// Setup Lucide icons renderer and restore saved theme
 function initThemeAndIcons() {
+  // Restore saved theme preference
+  const savedTheme = localStorage.getItem('budgettracker_theme');
+  if (savedTheme === 'light') {
+    document.body.classList.add('light-theme');
+  } else {
+    document.body.classList.remove('light-theme');
+  }
   lucide.createIcons();
 }
 
@@ -375,6 +382,17 @@ function setupEventListeners() {
   // Mobile drawer controls
   dom.mobileMenuBtn.addEventListener('click', () => dom.sidebar.classList.add('active'));
   dom.closeSidebarBtn.addEventListener('click', () => dom.sidebar.classList.remove('active'));
+
+  // Theme Toggle Button
+  const themeToggleBtn = document.getElementById('themeToggleBtn');
+  if (themeToggleBtn) {
+    themeToggleBtn.addEventListener('click', () => {
+      const isLight = document.body.classList.toggle('light-theme');
+      localStorage.setItem('budgettracker_theme', isLight ? 'light' : 'dark');
+      // Re-render icons since DOM may have changed visibility
+      lucide.createIcons();
+    });
+  }
   
   // Navigation tabs toggle
   dom.navButtons.forEach(btn => {
