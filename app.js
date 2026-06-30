@@ -140,6 +140,8 @@ const dom = {
   budgetLimitVal: document.getElementById('budgetLimitVal'),
   budgetProgressBar: document.getElementById('budgetProgressBar'),
   budgetStatusText: document.getElementById('budgetStatusText'),
+  insightBadge: document.getElementById('insightBadge'),
+  insightText: document.getElementById('insightText'),
   
   // Transaction CRUD triggers
   btnOpenAddModal: document.getElementById('btnOpenAddModal'),
@@ -665,6 +667,30 @@ function renderDashboard() {
   // Monthly Budget Target calculations
   dom.budgetSpentVal.textContent = formatCurrency(totalExpenses);
   dom.budgetLimitVal.textContent = formatCurrency(state.budgetLimit);
+
+  const selectedMonthLabel = state.filters.month !== 'all' ? formatMonthYearString(state.filters.month) : 'all time';
+  let insightTitle = 'Balanced';
+  let insightMessage = `Your finances look steady for ${selectedMonthLabel}. Keep tracking to stay ahead.`;
+
+  if (totalIncome === 0 && totalExpenses === 0) {
+    insightTitle = 'Getting Started';
+    insightMessage = 'Add your first income or expense to unlock tailored guidance for your budget.';
+  } else if (state.budgetLimit > 0 && totalExpenses > state.budgetLimit) {
+    insightTitle = 'Needs Attention';
+    insightMessage = `You are above your monthly budget by ${formatCurrency(totalExpenses - state.budgetLimit)}. Consider trimming non-essential spending this month.`;
+  } else if (visualSavingsRate >= 30) {
+    insightTitle = 'Strong Momentum';
+    insightMessage = `You are saving ${visualSavingsRate}% of your income for ${selectedMonthLabel}, which is an excellent pace.`;
+  } else if (visualSavingsRate >= 15) {
+    insightTitle = 'Balanced';
+    insightMessage = `You are keeping a healthy balance with a ${visualSavingsRate}% savings rate for ${selectedMonthLabel}.`;
+  } else {
+    insightTitle = 'Watch Closely';
+    insightMessage = `Your savings rate is ${visualSavingsRate}% for ${selectedMonthLabel}. Small shifts could build a stronger buffer.`;
+  }
+
+  dom.insightBadge.textContent = insightTitle;
+  dom.insightText.textContent = insightMessage;
   
   if (state.budgetLimit > 0) {
     const budgetPct = (totalExpenses / state.budgetLimit) * 100;

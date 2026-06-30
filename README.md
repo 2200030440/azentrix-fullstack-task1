@@ -29,6 +29,8 @@ AuraBudget is a sleek, premium, and fully responsive **Personal Finance & Budget
 - **📱 Premium Responsive Design:**
   - Built with a modern dark-mode aesthetic, utilizing translucent glassmorphism panels, vivid accent glowing elements, and smooth micro-animations.
   - Fully mobile-responsive layout (collapsible sidebar navigation drawers, stacking metrics grids, and scrollable data tables).
+- **🧠 Smart Insight Panel:**
+  - The dashboard now offers a quick monthly guidance message based on your savings rate and budget status so the app feels more interactive and helpful.
 
 ---
 
