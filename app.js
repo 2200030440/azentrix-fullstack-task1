@@ -317,10 +317,12 @@ function updateFilterCategories() {
 function initThemeAndIcons() {
   // Restore saved theme preference
   const savedTheme = localStorage.getItem('budgettracker_theme');
-  if (savedTheme === 'light') {
-    document.body.classList.add('light-theme');
-  } else {
+  if (savedTheme === 'dark') {
+    document.body.classList.add('dark-theme');
     document.body.classList.remove('light-theme');
+  } else {
+    document.body.classList.add('light-theme');
+    document.body.classList.remove('dark-theme');
   }
   lucide.createIcons();
 }
@@ -387,10 +389,23 @@ function setupEventListeners() {
   const themeToggleBtn = document.getElementById('themeToggleBtn');
   if (themeToggleBtn) {
     themeToggleBtn.addEventListener('click', () => {
-      const isLight = document.body.classList.toggle('light-theme');
-      localStorage.setItem('budgettracker_theme', isLight ? 'light' : 'dark');
+      let newTheme;
+      if (document.body.classList.contains('light-theme')) {
+        document.body.classList.add('dark-theme');
+        document.body.classList.remove('light-theme');
+        newTheme = 'dark';
+      } else {
+        document.body.classList.add('light-theme');
+        document.body.classList.remove('dark-theme');
+        newTheme = 'light';
+      }
+      localStorage.setItem('budgettracker_theme', newTheme);
       // Re-render icons since DOM may have changed visibility
       lucide.createIcons();
+      // Re-render dashboard to refresh chart theme colors
+      if (state.activeTab === 'dashboard') {
+        renderDashboard();
+      }
     });
   }
   
@@ -903,6 +918,17 @@ function renderCharts() {
   renderMonthlyTrendChart();
 }
 
+function getChartThemeColors() {
+  const isDark = document.body.classList.contains('dark-theme');
+  return {
+    textColor: isDark ? '#9CA3AF' : '#4B5563',
+    gridColor: isDark ? 'rgba(255, 255, 255, 0.08)' : 'rgba(0, 0, 0, 0.05)',
+    tooltipBg: isDark ? '#121824' : '#111827',
+    tooltipText: isDark ? '#F3F4F6' : '#ffffff',
+    tooltipBorder: isDark ? 'rgba(255, 255, 255, 0.12)' : 'rgba(0, 0, 0, 0.08)'
+  };
+}
+
 function renderCategoryBreakdownChart(monthTxs) {
   // Aggregate expenses by category
   const expenseTxs = monthTxs.filter(tx => tx.type === 'expense');
@@ -926,7 +952,8 @@ function renderCategoryBreakdownChart(monthTxs) {
     // Clear canvas or show message
     ctx.clearRect(0, 0, 300, 300);
     // Draw empty placeholder text directly on canvas
-    ctx.fillStyle = '#6b7280';
+    const chartColors = getChartThemeColors();
+    ctx.fillStyle = chartColors.textColor;
     ctx.font = '14px Plus Jakarta Sans, sans-serif';
     ctx.textAlign = 'center';
     ctx.textBaseline = 'middle';
@@ -935,9 +962,33 @@ function renderCategoryBreakdownChart(monthTxs) {
     return;
   }
   
-  // Compile colors
-  const backgroundColors = categories.map(cat => CATEGORY_COLORS[cat] || 'rgba(156, 163, 175, 0.8)');
-  const borderColors = categories.map(cat => CATEGORY_BORDER_COLORS[cat] || 'rgb(156, 163, 175)');
+  // Compile colors dynamically matching our theme definitions
+  const isDark = document.body.classList.contains('dark-theme');
+  const backgroundColors = categories.map(cat => {
+    if (cat === 'Food & Dining') return isDark ? 'rgba(244, 63, 94, 0.75)' : 'rgba(220, 38, 38, 0.75)';
+    if (cat === 'Rent & Utilities') return 'rgba(59, 130, 246, 0.75)';
+    if (cat === 'Transportation') return 'rgba(245, 158, 11, 0.75)';
+    if (cat === 'Entertainment') return isDark ? 'rgba(139, 92, 246, 0.75)' : 'rgba(124, 58, 237, 0.75)';
+    if (cat === 'Shopping') return 'rgba(236, 72, 153, 0.75)';
+    if (cat === 'Healthcare') return 'rgba(20, 184, 166, 0.75)';
+    if (cat === 'Travel') return 'rgba(14, 165, 233, 0.75)';
+    if (cat === 'Education') return 'rgba(249, 115, 22, 0.75)';
+    return 'rgba(156, 163, 175, 0.75)';
+  });
+  
+  const borderColors = categories.map(cat => {
+    if (cat === 'Food & Dining') return isDark ? 'rgb(244, 63, 94)' : 'rgb(220, 38, 38)';
+    if (cat === 'Rent & Utilities') return 'rgb(59, 130, 246)';
+    if (cat === 'Transportation') return 'rgb(245, 158, 11)';
+    if (cat === 'Entertainment') return isDark ? 'rgb(139, 92, 246)' : 'rgb(124, 58, 237)';
+    if (cat === 'Shopping') return 'rgb(236, 72, 153)';
+    if (cat === 'Healthcare') return 'rgb(20, 184, 166)';
+    if (cat === 'Travel') return 'rgb(14, 165, 233)';
+    if (cat === 'Education') return 'rgb(249, 115, 22)';
+    return 'rgb(156, 163, 175)';
+  });
+  
+  const chartColors = getChartThemeColors();
   
   state.charts.category = new Chart(ctx, {
     type: 'doughnut',
@@ -958,7 +1009,7 @@ function renderCategoryBreakdownChart(monthTxs) {
         legend: {
           position: 'right',
           labels: {
-            color: '#d1d5db',
+            color: chartColors.textColor,
             font: {
               family: 'Plus Jakarta Sans',
               size: 11
@@ -969,10 +1020,10 @@ function renderCategoryBreakdownChart(monthTxs) {
           }
         },
         tooltip: {
-          backgroundColor: '#111827',
-          titleColor: '#ffffff',
-          bodyColor: '#f3f4f6',
-          borderColor: 'rgba(255, 255, 255, 0.08)',
+          backgroundColor: chartColors.tooltipBg,
+          titleColor: chartColors.tooltipText,
+          bodyColor: chartColors.tooltipText,
+          borderColor: chartColors.tooltipBorder,
           borderWidth: 1,
           padding: 10,
           callbacks: {
@@ -1026,9 +1077,12 @@ function renderMonthlyTrendChart() {
   
   const ctx = document.getElementById('trendChart').getContext('2d');
   
+  const isModern = document.body.classList.contains('light-theme');
+  const chartColors = getChartThemeColors();
+  
   if (displayMonths.length === 0) {
     ctx.clearRect(0, 0, 400, 300);
-    ctx.fillStyle = '#6b7280';
+    ctx.fillStyle = chartColors.textColor;
     ctx.font = '14px Plus Jakarta Sans, sans-serif';
     ctx.textAlign = 'center';
     ctx.textBaseline = 'middle';
@@ -1036,6 +1090,11 @@ function renderMonthlyTrendChart() {
     state.charts.trend = null;
     return;
   }
+  
+  const incomeBg = isModern ? 'rgba(5, 150, 105, 0.75)' : 'rgba(44, 110, 73, 0.75)';
+  const incomeBorder = isModern ? 'rgb(5, 150, 105)' : 'rgb(44, 110, 73)';
+  const expenseBg = isModern ? 'rgba(220, 38, 38, 0.75)' : 'rgba(168, 46, 62, 0.75)';
+  const expenseBorder = isModern ? 'rgb(220, 38, 38)' : 'rgb(168, 46, 62)';
   
   state.charts.trend = new Chart(ctx, {
     type: 'bar',
@@ -1045,8 +1104,8 @@ function renderMonthlyTrendChart() {
         {
           label: 'Income',
           data: incomeData,
-          backgroundColor: 'rgba(16, 185, 129, 0.75)', // translucent emerald
-          borderColor: 'rgb(16, 185, 129)',
+          backgroundColor: incomeBg,
+          borderColor: incomeBorder,
           borderWidth: 1.5,
           borderRadius: 4,
           maxBarThickness: 28
@@ -1054,8 +1113,8 @@ function renderMonthlyTrendChart() {
         {
           label: 'Expenses',
           data: expenseData,
-          backgroundColor: 'rgba(244, 63, 94, 0.75)', // translucent rose
-          borderColor: 'rgb(244, 63, 94)',
+          backgroundColor: expenseBg,
+          borderColor: expenseBorder,
           borderWidth: 1.5,
           borderRadius: 4,
           maxBarThickness: 28
@@ -1069,7 +1128,7 @@ function renderMonthlyTrendChart() {
         legend: {
           position: 'top',
           labels: {
-            color: '#d1d5db',
+            color: chartColors.textColor,
             font: {
               family: 'Plus Jakarta Sans',
               size: 11
@@ -1078,10 +1137,10 @@ function renderMonthlyTrendChart() {
           }
         },
         tooltip: {
-          backgroundColor: '#111827',
-          titleColor: '#ffffff',
-          bodyColor: '#f3f4f6',
-          borderColor: 'rgba(255, 255, 255, 0.08)',
+          backgroundColor: chartColors.tooltipBg,
+          titleColor: chartColors.tooltipText,
+          bodyColor: chartColors.tooltipText,
+          borderColor: chartColors.tooltipBorder,
           borderWidth: 1,
           padding: 10,
           callbacks: {
@@ -1099,7 +1158,7 @@ function renderMonthlyTrendChart() {
             display: false
           },
           ticks: {
-            color: '#9ca3af',
+            color: chartColors.textColor,
             font: {
               family: 'Plus Jakarta Sans',
               size: 10
@@ -1108,10 +1167,10 @@ function renderMonthlyTrendChart() {
         },
         y: {
           grid: {
-            color: 'rgba(255, 255, 255, 0.05)'
+            color: chartColors.gridColor
           },
           ticks: {
-            color: '#9ca3af',
+            color: chartColors.textColor,
             font: {
               family: 'Plus Jakarta Sans',
               size: 10
