@@ -1,52 +1,299 @@
-# 💸 AuraBudget - Premium Personal Finance Tracker
+# 💸 Budget Tracker - Premium Personal Finance Manager
 
-AuraBudget is a sleek, premium, and fully responsive **Personal Finance & Budget Tracker** web application designed to help small businesses and individuals track their daily income and expenses in one gorgeous, unified dashboard. It operates completely on the client side, using `localStorage` for automatic, instant data persistence.
+**Budget Tracker** is a sleek, premium, and fully responsive personal finance and budget tracking web application. It helps individuals and small businesses monitor their daily income and expenses with an intuitive, beautiful dashboard. The app operates entirely on the client side with automatic data persistence using browser `localStorage`.
 
----
-
-## ✨ Features
-
-- **📊 High-Impact Analytics:**
-  - **Dynamic Metrics Summary:** Get real-time updates on Net Balance, Monthly Income, Monthly Expenses, and your overall Savings Rate (with a progress indicator).
-  - **Expense Breakdown Chart:** An interactive, responsive Donut Chart (Chart.js) grouping your monthly expenditures by category.
-  - **Income vs Expense Monthly Trend:** A grouped Bar Chart visualizing your historical financial trends over the last 6 months.
-- **📝 Complete Transaction Ledger (CRUD):**
-  - **Add, Edit, and Delete:** Manage transaction items effortlessly with a modern, modal-based form UI.
-  - **Smart Category Assignment:** Automatic categorization options context-dependent on whether the transaction is an Income (Salary, Freelance, etc.) or an Expense (Rent, Food, etc.).
-- **⚙️ Monthly Budget Targets & Alert Engine:**
-  - Set a custom monthly budget limit.
-  - Track spending with a colored visual progress bar (which turns warning yellow, and critical red if exceeded).
-  - An animated top banner sounds the alarm when your spending exceeds the configured alert percentage threshold (e.g. 85%).
-- **🔍 Advanced Search & Filter System:**
-  - Instant text-search on titles, categories, and custom notes.
-  - Filters to isolate transactions by Type (Income/Expense), category selection, or Month.
-  - Dynamic sorting by Date (newest/oldest) and Amount (highest/lowest).
-  - Clean pagination logic to prevent interface clutter.
-- **💾 Data Portability:**
-  - **Export to CSV:** Back up your transaction history as a standard spreadsheet file at any time.
-  - **Import from CSV:** Easily load previous backups back into the app using a built-in parse and merge engine.
-  - **Factory Reset:** Erase all stored entries and restore defaults with double-confirmation protection.
-- **📱 Premium Responsive Design:**
-  - Built with a modern dark-mode aesthetic, utilizing translucent glassmorphism panels, vivid accent glowing elements, and smooth micro-animations.
-  - Fully mobile-responsive layout (collapsible sidebar navigation drawers, stacking metrics grids, and scrollable data tables).
-- **🧠 Smart Insight Panel:**
-  - The dashboard now offers a quick monthly guidance message based on your savings rate and budget status so the app feels more interactive and helpful.
+🔗 **Live Demo:** [https://poetic-capybara-5aae2b.netlify.app/](https://poetic-capybara-5aae2b.netlify.app/)
 
 ---
 
-## 🛠️ Project Structure
+## ✨ Key Features
 
+### 📊 Financial Analytics & Insights
+- **Real-time Metrics Dashboard:** Net Balance, Monthly Income, Monthly Expenses, and Savings Rate with visual progress indicators
+- **Interactive Charts:**
+  - Expense Breakdown (Donut Chart) - categorized spending analysis
+  - Income vs Expense Trend (Bar Chart) - historical 6-month financial trends
+- **Smart Insight Panel:** AI-powered monthly guidance based on your savings rate and budget status
+
+### 💳 Complete Transaction Management (CRUD)
+- **Add, Edit, Delete Transactions:** User-friendly modal-based form interface
+- **Smart Categorization:** Context-aware categories for Income (Salary, Freelance, Investments) and Expenses (Food, Rent, Transportation, etc.)
+- **Flexible Date & Timestamp Support:** Track transactions across any time period
+
+### 🎯 Budget Planning & Alerts
+- **Custom Monthly Budget Limits:** Set personalized spending targets
+- **Visual Progress Tracking:** Animated progress bar (green → yellow → red)
+- **Smart Alert Notifications:** Automatic warnings when spending reaches 85% or exceeds budget
+- **Real-time Budget Status:** Current spending vs. target with visual indicators
+
+### 🔍 Advanced Search & Filtering
+- **Full-Text Search:** Search by description, category, or custom notes
+- **Multi-Filter System:** Filter by transaction type, category, or date range
+- **Smart Sorting:** Sort by date (ascending/descending) or amount (highest/lowest)
+- **Pagination:** Clean, organized transaction ledger with page navigation
+
+### 💾 Data Management
+- **Export to CSV:** Backup all transactions as spreadsheet files
+- **Import from CSV:** Restore previous backups with automatic parsing and merge logic
+- **Factory Reset:** Clear all data with double-confirmation safety
+
+### 🌓 Premium User Experience
+- **Dark/Light Theme Toggle:** Glassmorphism design with smooth transitions
+- **Fully Responsive:** Mobile-first design with collapsible sidebar, adaptive grids
+- **Rich Micro-interactions:** Smooth animations, toast notifications, loading states
+
+---
+
+## 🛠️ Technical Approach & Architecture
+
+### Frontend Stack
+- **HTML5:** Semantic, accessible markup structure
+- **CSS3:** Custom design system with CSS variables, Grid, Flexbox, and smooth transitions
+- **Vanilla JavaScript:** No frameworks—lightweight, fast, and dependency-free
+- **Chart.js CDN:** Interactive, responsive charts for data visualization
+- **Lucide Icons CDN:** Beautiful, crisp SVG iconography
+
+### State Management
+- **Client-Side Only:** All data stored in browser `localStorage`
+- **Reactive State Object:** Central state tree for transactions, filters, and UI state
+- **Automatic Persistence:** Real-time syncing to localStorage on every transaction change
+- **Seed Data:** Pre-populated with mock transactions for demo purposes
+
+### Design System
+- **CSS Custom Properties:** Unified theme (light/dark mode)
+- **Responsive Grid System:** Mobile, tablet, desktop breakpoints
+- **Glassmorphism Panels:** Modern translucent card design
+- **Color Palettes:** Emerald (income), Rose (expenses), Indigo (accent), Violet (savings)
+
+### Performance Optimizations
+- **Minimal Dependencies:** No npm packages (except dev tools)
+- **Lazy Chart Rendering:** Charts only regenerate when needed
+- **Efficient DOM Updates:** Batch updates prevent layout thrashing
+- **Optimized Build:** Production bundle ~32KB gzipped
+
+---
+
+## 📸 Screenshots & Demo
+
+### Dashboard View
+![Dashboard](screenshots/dashboard_final.png)
+*Main dashboard showing metrics, charts, and recent transactions with dark theme*
+
+### Transaction Management
+![Transaction Form](screenshots/transaction_form.png)
+*Modal form for adding/editing transactions with category selection*
+
+### Budget Settings
+![Settings](screenshots/settings_final_inr.png)
+*Budget configuration, currency selection, and data export/import*
+
+### Multi-Currency Support
+![USD Metrics](screenshots/dashboard_usd_metrics.png)
+*Dashboard with USD currency and updated financial metrics*
+
+---
+
+## 🚀 Setup & Installation
+
+### Prerequisites
+- **Node.js** (v16 or newer) - [Download](https://nodejs.org/)
+- **Git** - [Download](https://git-scm.com/)
+
+### Local Development
+
+#### 1. Clone the Repository
 ```bash
-├── screenshots/               # Application UI captures and demo media
-├── index.html                 # Main Single-Page App DOM structure
-├── style.css                  # UI Design System, CSS variables, & responsiveness
-├── app.js                     # State management, local storage sync, charts & CRUD logic
-├── package.json               # Node dev tool shortcuts
-├── vite.config.js             # Vite development server settings
-└── README.md                  # Setup guidelines and documentation
+git clone https://github.com/2200030440/azentrix-fullstack-task1.git
+cd azentrix-fullstack-task1
+```
+
+#### 2. Install Dependencies
+```bash
+npm install
+```
+
+#### 3. Start Development Server
+```bash
+npm run dev
+```
+The app will automatically open at `http://localhost:3000`
+
+#### 4. Build for Production
+```bash
+npm run build
+```
+Optimized files are generated in the `dist/` folder
+
+#### 5. Preview Production Build
+```bash
+npm run preview
 ```
 
 ---
+
+## 📁 Project Structure
+
+```
+azentrix-fullstack-task1/
+├── index.html              # Main HTML entry point
+├── app.js                  # Core application logic & state management
+├── style.css               # Complete design system & responsive styles
+├── vite.config.js          # Vite bundler configuration
+├── netlify.toml            # Netlify deployment config
+├── package.json            # Node.js dependencies & scripts
+├── package-lock.json       # Locked dependency versions
+├── .github/
+│   └── workflows/
+│       └── deploy.yml      # GitHub Actions CI/CD workflow
+├── screenshots/            # UI demo images
+│   ├── dashboard_final.png
+│   ├── transaction_form.png
+│   ├── settings_final_inr.png
+│   └── ...
+├── dist/                   # Production build output (auto-generated)
+└── README.md               # This file
+```
+
+---
+
+## 📖 How to Use
+
+### Adding a Transaction
+1. Click **"Add Transaction"** button (or **"+"** icon)
+2. Select transaction type (Income/Expense)
+3. Enter amount, date, category, and description
+4. Optionally add notes
+5. Click **Submit** to save
+
+### Managing Budget
+1. Go to **Budget & Goals** tab
+2. Set your monthly budget limit (e.g., $1,200)
+3. Set alert threshold (default: 85%)
+4. Select your preferred currency
+5. Changes save automatically
+
+### Searching & Filtering
+1. Use the **Search** field to find transactions by description
+2. Filter by **Type** (Income/Expense)
+3. Filter by **Category** (Salary, Rent, Food, etc.)
+4. Filter by **Month** to view specific periods
+5. Sort by **Date** or **Amount** (ascending/descending)
+
+### Exporting & Importing Data
+- **Export:** Click **"Export Backup"** to download transactions as CSV
+- **Import:** Click **"Import Backup"** to restore a previous CSV backup
+- **Reset:** Go to Settings and click **"Reset Data"** (with double confirmation)
+
+### Theme Switching
+- Click the **Moon/Sun** icon in the header to toggle between Dark and Light modes
+- Your preference is remembered automatically
+
+---
+
+## 🔧 Configuration
+
+### Customize Budget Categories
+Edit the `CATEGORIES` object in `app.js`:
+```javascript
+const CATEGORIES = {
+  income: ['Salary', 'Freelance', 'Investments', 'Gift', 'Other'],
+  expense: [
+    'Food & Dining', 
+    'Rent & Utilities', 
+    'Transportation', 
+    'Entertainment', 
+    'Shopping', 
+    'Healthcare', 
+    'Travel', 
+    'Education', 
+    'Other'
+  ]
+};
+```
+
+### Add New Currencies
+Edit the `CURRENCY_CONFIGS` object:
+```javascript
+const CURRENCY_CONFIGS = {
+  INR: { locale: 'en-IN', symbol: '₹' },
+  USD: { locale: 'en-US', symbol: '$' },
+  EUR: { locale: 'en-IE', symbol: '€' },
+  // Add more...
+};
+```
+
+---
+
+## 💾 Data Storage
+
+All data is stored locally in your browser using `localStorage`:
+- **Transactions:** `aurabudget_transactions`
+- **Budget Limit:** `aurabudget_budget_limit`
+- **Alert Threshold:** `aurabudget_alert_threshold`
+- **Currency:** `aurabudget_currency`
+- **Theme:** `budgettracker_theme`
+
+**Note:** Clearing browser storage will erase all data. Use **Export Backup** to save your data before clearing.
+
+---
+
+## 🚀 Deployment
+
+### Deployed on Netlify (Recommended)
+The app is currently deployed and live at:  
+**[https://poetic-capybara-5aae2b.netlify.app/](https://poetic-capybara-5aae2b.netlify.app/)**
+
+#### To Deploy Your Own Copy:
+1. Fork this repository
+2. Sign up at [Netlify](https://netlify.com)
+3. Connect your GitHub repository
+4. Click **Deploy** (Netlify auto-detects `netlify.toml`)
+5. Your site will be live in 1-2 minutes
+
+### Alternative Deployments
+- **GitHub Pages:** Use `npm run build` and push `dist/` folder
+- **Vercel:** Connect repository and auto-deploy
+- **Firebase Hosting:** `firebase deploy`
+- **Any static host:** Upload contents of `dist/` folder
+
+---
+
+## 🎯 Features Roadmap
+
+**Planned for Future Versions:**
+- [ ] Cloud sync (Firebase/Supabase backend)
+- [ ] Recurring transaction templates
+- [ ] Budget goal categories (separate from transaction categories)
+- [ ] Advanced analytics (year-over-year trends)
+- [ ] Mobile app (React Native/Flutter)
+- [ ] Multi-user accounts & sharing
+
+---
+
+## 📄 License
+
+This project is open source and available under the **MIT License**. Feel free to use, modify, and distribute as desired.
+
+---
+
+## 🤝 Support & Contribution
+
+Found a bug or have a feature request?
+- **GitHub Issues:** [Report a bug](https://github.com/2200030440/azentrix-fullstack-task1/issues)
+- **Pull Requests:** Contributions welcome!
+
+---
+
+## 📞 Contact
+
+For questions or feedback:
+- **GitHub:** [@2200030440](https://github.com/2200030440)
+- **Repository:** [azentrix-fullstack-task1](https://github.com/2200030440/azentrix-fullstack-task1)
+
+---
+
+**Last Updated:** June 2026  
+**Version:** 1.0.0
 
 ## 🚀 Setup & Execution Instructions
 
