@@ -530,6 +530,20 @@ function setupEventListeners() {
       renderTransactionsLedger();
     }
   });
+
+  dom.fullTransactionsTable.addEventListener('click', (e) => {
+    const actionButton = e.target.closest('.edit-btn, .delete-btn');
+    if (!actionButton || !dom.fullTransactionsTable.contains(actionButton)) return;
+
+    const txId = actionButton.dataset.id;
+    if (!txId) return;
+
+    if (actionButton.classList.contains('edit-btn')) {
+      openTransactionModal(txId);
+    } else {
+      confirmDeleteTransaction(txId);
+    }
+  });
   
   // Settings Tab Operations
   dom.budgetSettingsForm.addEventListener('submit', (e) => {
@@ -906,10 +920,6 @@ function renderTransactionsLedger() {
         </div>
       </td>
     `;
-    
-    // Register actions listeners
-    row.querySelector('.edit-btn').addEventListener('click', () => openTransactionModal(tx.id));
-    row.querySelector('.delete-btn').addEventListener('click', () => confirmDeleteTransaction(tx.id));
     
     dom.fullTransactionsTable.appendChild(row);
   });
