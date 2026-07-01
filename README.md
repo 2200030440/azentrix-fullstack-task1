@@ -1,6 +1,6 @@
 # 💸 Budget Tracker - Premium Personal Finance Manager
 
-🚀 **[LIVE APP - Click Here to Use](https://poetic-capybara-5aae2b.netlify.app/)**
+🚀 **[LIVE APP - Click Here to Use](https://taupe-khapse-e57086.netlify.app/)**
 
 **Budget Tracker** is a sleek, premium, and fully responsive personal finance and budget tracking web application. It helps individuals and small businesses monitor their daily income and expenses with an intuitive, beautiful dashboard. The app operates entirely on the client side with automatic data persistence using browser `localStorage`.
 
@@ -243,7 +243,7 @@ Each visitor has separate browser storage. The live app does not use a shared da
 
 ### Deployed on Netlify (Recommended)
 The app is currently deployed and live at:  
-**[https://poetic-capybara-5aae2b.netlify.app/](https://poetic-capybara-5aae2b.netlify.app/)**
+**[https://taupe-khapse-e57086.netlify.app/](https://taupe-khapse-e57086.netlify.app/)**
 
 #### To Deploy Your Own Copy:
 1. Fork this repository
